@@ -1,0 +1,51 @@
+\documentclass[english,embeddedlogo]{lapesd-thesis}
+
+% Outros \usepackage{}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Configurações da classe (dados do trabalho)                  %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Informações para capa e folha de rosto/certificacao
+\titulo{Template \LaTeX{} para testes e dissertações do LAPESD/UFSC}
+\autor{Omar Ravenhurst}
+\data{1 de agosto de 2019} % ou \today
+\tese % ou \dissertacao
+\titulode{Doutor em Ciência da Computação}
+\orientador{Prof. Dr. Ben Trovato}
+\coorientador{Prof. Dr. Lars Thørväld}
+
+% Membros da banca e coordenador
+% As regras da BU agora exigem que Dr. apareça depois do nome
+\membrobanca{Prof. Valerie Béranger, Dr.}{Universidade Federal de Santa Catarina}
+\membrobanca{Prof. Mordecai Malignatus, Dr.}{Universidade Federal de Santa Catarina}
+\membrobanca{Prof. Huifen Chan, Dr.}{Universidade Federal de Santa Catarina}
+% Atenção! o template da BU e o documento que apresenta as regras continua
+% usando Dr antes do nome para Orientador e Coordenador!
+\coordenador{Prof. Dr. Charles Palmer}
+
+
+% Ativa indíce remissivo. Precisa estar aqui, não funciona no .cls nem no
+% \BeforeBeginDocument{}
+\makeindex
+% Carrega definições dos acrônimos e do glossário. Isso precisa ser feito antes
+% do \begin{document}
+\input{acronyms.tex}
+\input{glossary.tex}
+
+\begin{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Conteúdo                                                     %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\pretextual%
+\input{prolog.tex}
+\textual%
+\input{body.tex}
+\postextual
+\input{epilog.tex}
+
+\bibliography{main}
+
+\end{document}

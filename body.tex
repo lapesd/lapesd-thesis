@@ -1,0 +1,168 @@
+% Assume-se que \textual já foi feito
+
+\chapter{Exemplo}
+\label{ch:exemplo}
+
+\index{bobagem} Primeiro parágrafo da seção com uma frase sem sentido que só serve para ocasionar uma quebra e de demonstrar a configuração de indentação da primeira linha. Essa frase está aqui pois parágrafos de uma linha são feios.
+
+Resultado do uso de siglas:
+\begin{itemize}
+\item Sigla que nunca expande: \API;
+\item Sigla normal, expande no primeiro uso: \DHT, mas não no segundo: \DHT;
+\item Siglas com plurais automaticos: \APIs e \DHTs;
+\item Forçando uma expansão (e no plural) \Glsfirstplural{DHT};
+\item Usando uma sigla cujo comando é diferente da sigla: \WTC.
+\end{itemize}
+
+Resultado do glossário:
+\begin{itemize}
+\item Dois termos, \polling e \proxy;
+\item Plural: \proxys.
+\end{itemize}
+
+Resultado de \mla|index|: primeiro um link normal \indexterm{tomate}, depois um capitalizado \indexTerm{tomate}.
+
+\begin{defn}
+  Exemplo de definição
+\end{defn}
+
+\begin{theorem}
+  Exemplo de teorema
+\end{theorem}
+
+\begin{theoremproof}
+  Exemplo de prova \qed
+\end{theoremproof}
+
+(Sub)enumerações e citações (verificar se OK com o idioma):
+\begin{enumerate}
+\item \cite{turing1937}:
+  \begin{enumerate}
+  \item \citeonline{turing1937}:
+    \begin{enumerate}
+    \item \citeonline{dijkstra1968};
+    \end{enumerate}
+  \end{enumerate}
+\item \cite{turing1937,dijkstra1968};
+\item \citeonline{turing1937,dijkstra1968}.
+\end{enumerate}
+
+
+\begin{listing}[tb]
+\caption{Meta informações do presente documento.}
+\label{lst:meta}
+\begin{minted}[highlightlines={1,4-5}]{latex}
+\titulo{Template \LaTeX{} para testes e dissertações do LAPESD/UFSC}
+\autor{Omar Ravenhurst}
+\data{1 de agosto de 2019} % ou \today
+\tese % ou \dissertacao
+\titulode{Doutor em Ciência da Computação}
+\orientador{Prof. Dr. Ben Trovato}
+\coorientador{Prof. Dr. Lars Thørväld}
+
+\membrobanca{Prof. Valerie Béranger, Dr.}{Universidade Federal de Santa Catarina}
+\membrobanca{Prof. Mordecai Malignatus, Dr.}{Universidade Federal de Santa Catarina}
+\membrobanca{Prof. Huifen Chan, Dr.}{Universidade Federal de Santa Catarina}
+\coordenador{Prof. Dr. Charles Palmer}
+\end{minted}
+\fonte{o autor.}
+\end{listing}
+
+
+Resultado de \mla|\autoref|s:
+\begin{itemize}
+\item \autoref{lst:meta};
+\item \autoref{alg:algoritmo};
+\item \autoref{fig:figura} tem subfiguras:
+  \begin{itemize}
+  \item \autoref{fig:svg}
+  \item \autoref{fig:brasao}
+  \end{itemize}
+\item \autoref{tb:tabela};
+\item \autoref{ch:exemplo};
+\item \autoref{sec:frutas};
+\item \autoref{sec:goiaba};
+\item \autoref{sec:jabuticaba};
+\item \autoref{sec:tomate}.
+\end{itemize}
+
+
+\begin{algorithm}
+  \caption{Exemplo do ambiente \texttt{algorithimic}.}
+  \label{alg:algoritmo}
+  \begin{algorithmic}[1]
+    \Procedure{Closure}{C, A}
+      \State{$H \gets \emptyset$}\Comment{Direct cache}
+      \For{$i \in [1, n]$}\Comment{Parallel, (dynamic,32) scheduling}
+        \State{$H \gets H \cup \Call{DoImportantStuff}{i}$}
+      \EndFor
+    \EndProcedure
+  \end{algorithmic}
+  \fonte{o autor.}
+\end{algorithm}
+
+\begin{figure}[tb]
+  \centering
+  \caption{Exemplo de figura com duas subfiguras.}   
+  \label{fig:figura}
+  
+  % Subfiguras são feitas usando as funcionalidades do memoir. Não
+  % inclua outros pacotes, pois eles podem fazer o memoir dar ragequit
+  % 
+  % Há duas maneiras, a maneira limpinha (só no lapesd-thesis.cls) e a
+  % maneira do memoir (aviso: \subtop não funciona direito).
+  \subcaptionminipage[fig:svg]%
+    {.49\linewidth}%
+    {O Makefile compila SVGs em PDFs usando o inkscape}%
+    {\includegraphics[width=.2\linewidth]{alphachannel.pdf}}%
+  \hfill% 
+  % o comando acima expande para o equivalente disso:
+  \begin{minipage}[t]{.49\linewidth}%
+    \centering
+    \subcaption{Brasão da UFSC.\label{fig:brasao}}
+    \includegraphics[width=.2\linewidth]{\jobname-logo.pdf}
+  \end{minipage}
+
+  \fonte{o autor.}
+\end{figure}
+
+\begin{table}[tb]
+  \centering
+  \caption{Exemplo de tabela e símbolos}
+  \label{tb:tabela}
+  \begin{tabular}{lccp{5cm}}
+    \toprule
+    Esquerda & Coluna 1    & \rotatebox{90}{90 graus}  & Parágrafo com \mla|p{5cm}|   \\
+    \midrule
+    $r_1$    & \cmk        &  \xmk                     & \circledi    \\
+    $r_2$    &     \multicolumn{2}{c}{merged cell}     & \circledii   \\
+    $r_3$    & \circlediii & \circlediv                & \circledv    \\
+    $r_4$    & \circledvi  & \circledvii               & \circledviii \\
+    $r_5$    & \circledix  &  x                        & y           \\
+    \bottomrule 
+  \end{tabular}
+  \fonte{o autor.}
+\end{table}
+
+\section{Frutas}
+\label{sec:frutas}
+\lipsum[4]
+
+\subsection{Goiaba}
+\label{sec:goiaba}
+\lipsum[4]
+
+\subsubsection{Jabuticaba}
+\label{sec:jabuticaba}
+\lipsum[4]
+
+\subsubsubsection{Tomate}
+\label{sec:tomate}
+
+\xindex{tomate} \lipsum[4]
+
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "main"
+%%% End:

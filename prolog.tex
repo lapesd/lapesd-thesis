@@ -1,0 +1,83 @@
+% Assume-se que \pretextual já foi feito
+
+
+\imprimircapa%
+\imprimirfolhaderosto*
+% Atenção! esse \protect é importante
+\protect\incluirfichacatalografica{ficha.pdf}
+\imprimirfolhadecertificacao
+
+
+\begin{dedicatoria}
+  Este trabalho é dedicado à wikipedia e ao stackoverflow. Essa frase está aqui apenas para testar o alinhamento e as margens
+\end{dedicatoria}
+
+
+\begin{agradecimentos}
+  O presente trabalho foi realizado com apoio da Coordenação de Aperfeiçoamento de Pessoal de Nível Superior -- Brasil (CAPES) -- Código de Financiamento 001.
+\end{agradecimentos}
+
+
+\begin{epigrafe}
+  For a number of years I have been familiar with the observation that the quality of programmers is a decreasing function of the density of go to statements in the programs they produce \\
+  \cite{dijkstra1968}
+\end{epigrafe}
+
+
+\begin{resumo}[Resumo]
+  Aqui deve ser inserido um resumo de 150 a 500 palavras (limitação de tamanho dada pela BU). A linguagem deve ser português e a hifenização já foi alterada. O resumo em português deve preceder o resumo em inglês, mesmo que o trabalho seja escrito em inglês. A BU também diz que deve ser usada a voz ativa e o discurso deve ser na 3ª pessoa. A estrutura do resumo pode ser similar a estrutura usada em artigos: Contexto -- Problema -- Estado da arte -- Solução proposta  -- Resultados.
+
+  % Atenção! a BU exige separação através de ponto (.). Ela recomanda de 3 a 5 keywords
+  \vspace{\baselineskip} 
+  \textbf{Palavras-chave:} Palavra-chave. Ponto como separador. Bla.
+\end{resumo}
+
+
+\begin{resumo}[Resumo Estendido]
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Atenção: normas e templates contraditórios!!!                    %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% - Modelo da BU: https://repositorio.ufsc.br/handle/123456789/197458
+% - A BU exige no **mínimo** 2 páginas e no **máximo** 5
+% - Regimento do PPGCC, Art 40 Entende-se  por  resumo  estendido  um  documento  que  contenha  as  informações  mais  relevantes  de  cada  capítulo  da  tese  ou  da  dissertação.
+% O mais seguro é ignorar o regimento e seguir a BU.
+    % Atenção! A BU diz que o resumo **deve** conter as seções abaixo!
+  \section*{Introdução} % Deve ser  subsection*, devido a formatação usada no modelo
+  A hifenização é alterada para \texttt{brazil}, mesmo para documentos em inglês. Descrever brevemente esses itens exigidos pela BU. Como a RN 95/CUn/2017 é mais recente e impõe outras regras a revelia de regimentos e regulamentos, é mais sábio obedecê-la. Lembre que esse resumo estendido deve term entre 2 e 5 páginas.
+  
+  \lipsum[1]
+  \section*{Objetivos} 
+  \lipsum[21]
+  \section*{Metodologia} 
+  \lipsum[3]
+  \section*{Resultados e Discussão} 
+  \lipsum[4]
+  \section*{Considerações Finais} 
+  \lipsum[5]
+
+  \vspace{\baselineskip}  % Atenção! manter igual ao resumo
+  \textbf{Palavras-chave:} Palavra-chave. Outra Palavra-chave composta. Bla.
+\end{resumo}
+
+
+\begin{abstract}
+  Enlish version of the plain ``resumo'' above. Hyphenization is automatically changed to english
+
+  \vspace{\baselineskip} 
+  \textbf{Keywords:} Keyword. Another Compound Keyword. Bla.
+\end{abstract}
+
+\listoffigures*  % O * evita que apareça no sumário
+\listoftables*
+\listoflistings*  
+\listofalgorithms*
+
+\listadesiglas*
+
+
+\tableofcontents*%
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "main"
+%%% End:
