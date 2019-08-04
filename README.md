@@ -1,6 +1,6 @@
 # lapesd-thesis
 
-This is a template for writing thesis and dissertations (kind of) according to rules of the Federal University of Santa Catarina.
+This is a template for writing thesis and dissertations (kind of) according to rules of the Federal University of Santa Catarina adopted after Resolution 46/2019/CPG. This is a customization of the [ufsc-thesis-rn46-2019](https://github.com/alexishuf/ufsc-thesis-rn46-2019) class.
 
 ## Warning
 
