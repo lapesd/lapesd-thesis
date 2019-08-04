@@ -10,6 +10,7 @@
 *.blg
 *.glg
 *.gls
+*.glsdefs
 *.out
 *._region*
 *.synctex.gz
@@ -25,6 +26,7 @@
 *.lot
 *.brf
 *.lol
+*.loalgorithm
 *.xdy
 *.acn
 *.glo

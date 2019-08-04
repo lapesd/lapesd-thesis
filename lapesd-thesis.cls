@@ -189,6 +189,12 @@
   listname=\lapesdthesislistoflistingsname,%
   name=\lapesdthesislistingname%
 }
+
+\pretocmd{\listoflistings}{%
+  \begingroup%
+  \renewcommand{\figurename}{\lapesdthesislistingname}%
+}{}{}
+\pretocmd{\listoflistings}{\endroup}{}{}
 % Cria versão * que não adiciona no \tableofcontents
 \WithSuffix\newcommand\listoflistings*{%
   \begin{KeepFromToc}%
@@ -240,6 +246,12 @@
   listname=\lapesdthesislistofalgorithmsname,%
   name=\lapesdthesisalgorithmname%
 ]{algorithm}
+
+\pretocmd{\listofalgorithms}{%
+  \begingroup%
+  \renewcommand{\figurename}{\lapesdthesisalgorithmname}%
+}{}{}
+\pretocmd{\listofalgorithms}{\endroup}{}{}
 % Cria versão * que não adiciona no \tableofcontents
 \WithSuffix\newcommand\listofalgorithms*{%
   \begin{KeepFromToc}%
