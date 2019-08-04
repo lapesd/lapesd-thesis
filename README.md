@@ -8,7 +8,7 @@ This template is **highly opinionated** and not a prime example of flexibility. 
 
 # Usage
 
-See the example in this repository. File structure is as follows:
+**See the example** in this repository, starting from [main.tex](https://github.com/lapesd/lapesd-thesis/blob/master/main.tex). File structure is as follows:
 
 - `lapesd-thesis.cls`: The class file, extends [ufsc-thesis-rn46-2019](https://github.com/alexishuf/ufsc-thesis-rn46-2019)
 - `main.tex`: The main tex file, it `\input{}`s the following files:
@@ -147,7 +147,7 @@ Likewise, in order to generate `\entry` macros for every entry, a macro named `\
 
 This macro will generate macros \label and \labels, whose functionality was discussed earlier in the context of referencing entries. Again, you are **highly encouraged to see the example acronym definitions*  at the `glossary.tex` file.
 
-### Makefile
+## Makefile
 
 The Makefile should be straightforward. It detects changes in any .tex, .bib or .svg file in order to determine a rebuild of PDF file.
 
