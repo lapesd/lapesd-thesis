@@ -20,7 +20,7 @@ imgs: $(pdfs)
 .PHONY: all imgs clean
 
 clean: 
-	rm -fr *.64 _minted-* *.aux *.bbl *.blg *.brf *.out *.synctex.gz *.log main.pdf *.idx *.ilg *.ind *.lof *.lot *.lol *.loalgorithm *.glsdefs *.xdy *.toc *.acn *.glo *.ist *.prv _region*  *~ auto imgs/*.tmp.pdf {imgs,plots}/*-eps-converted-to.pdf; 
+	rm -fr *.64 main-logo.pdf _minted-* *.aux *.bbl *.blg *.brf *.out *.synctex.gz *.log main.pdf main.robust.pdf *.idx *.ilg *.ind *.lof *.lot *.lol *.loalgorithm *.glsdefs *.xdy *.toc *.acn *.glo *.ist *.prv _region*  *~ auto imgs/*.tmp.pdf {imgs,plots}/*-eps-converted-to.pdf; 
 
 
 # directly convert a SVG to PDF. The SVG's contents will be cropped to the page
@@ -60,4 +60,4 @@ main.pdf: $(srcs) main.aux main.blg main.ilg
 # Converts main.pdf to PDF version 1.4 and embedd all fonts
 # This is required by IEEE (this is done by PDF Xpress) and Elsevier journals
 main.robust.pdf: main.pdf
-	gs -dNOPAUSE -dBATCH -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dEmbedAllFonts=true -sOutputFile="$@.pdf" -f "$<" 
+	gs -dNOPAUSE -dBATCH -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dEmbedAllFonts=true -sOutputFile="$@" -f "$<" 
