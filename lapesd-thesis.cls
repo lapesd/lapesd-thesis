@@ -194,7 +194,7 @@
   \begingroup%
   \renewcommand{\figurename}{\lapesdthesislistingname}%
 }{}{}
-\pretocmd{\listoflistings}{\endroup}{}{}
+\apptocmd{\listoflistings}{\endgroup}{}{}
 % Cria versão * que não adiciona no \tableofcontents
 \WithSuffix\newcommand\listoflistings*{%
   \begin{KeepFromToc}%
@@ -251,7 +251,7 @@
   \begingroup%
   \renewcommand{\figurename}{\lapesdthesisalgorithmname}%
 }{}{}
-\pretocmd{\listofalgorithms}{\endroup}{}{}
+\apptocmd{\listofalgorithms}{\endgroup}{}{}
 % Cria versão * que não adiciona no \tableofcontents
 \WithSuffix\newcommand\listofalgorithms*{%
   \begin{KeepFromToc}%
