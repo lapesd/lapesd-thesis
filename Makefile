@@ -25,7 +25,7 @@ clean:
 
 # directly convert a SVG to PDF. The SVG's contents will be cropped to the page
 imgs/%.pdf: imgs/%.svg
-	$(INKS) -z -C -A=$@ $< 
+	$(INKS) -z -C -A="$$(pwd)/$@" "$$(pwd)/$<"
 
 #Possible bug: inkscape -z -D -i gSlide1 -A=out.pdf in.svg
 #Workaround: generate a pdf of the whole drawing (-D, beyond page borders); get bottom:left:width:height of object; convert px to PostScript pts; crop from the pdf
