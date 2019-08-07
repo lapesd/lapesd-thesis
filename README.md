@@ -43,6 +43,11 @@ Note that this list is of packages load in addition to those in the upstream cla
 - `amsthm` 
 - `enumitem` 
 
+### Dependencies
+
+These packages should be present in nearly all texlive instalations. In case of missing package errors, check the list of available and installed `texlive-*` packages on your system.
+
+The `minted` package requires pygments, a python module that has a pygmentize command line utility. Installation Check installation instructions for your particular system/package manager. On MacOS one must do `sudo easy_install Pygments`. On arch linux, the `pacman` package is `community/pygmentize`.
 
 ## Non-trivial configurations and new macros
 
