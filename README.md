@@ -111,6 +111,13 @@ The `glossaries` package is used with what its manual calls "Option 1". This rel
 \imprimirglossario*
 ```
 
+In the presence of large acronyms, the table may overflow into the right margin or even exceed the page border. This happens due to a miscalculation of the width of the description (rightmost) column while the acronyms (leftmost) column. By default, \listadesiglas guesses the largest acronym will have a width of 5em (1em == width of one uppercase 'M'). You can override this using the optional argument:
+
+```{latex}
+\listadesiglas[10em]* % large acronyms -- will shrink description
+\listadesiglas[2em]*  % small acronyms -- will widen description
+```
+
 #### Referencing an acronym or glossary entry
 
 If you use he custom macros to define acronyms and entries, you can use the acryonym and the entries themselves as macros. For example, supose an acronym `DHT` and a glossary entry `proxy`:

@@ -279,13 +279,13 @@
 
 % Estilo da lista de siglas
 \newglossarystyle{longdotted}{%
- \setglossarystyle{long}%
+  \setglossarystyle{long}%
   \renewcommand{\glossentry}[2]{%
-    \glsentryitem{##1}\glstarget{##1}{\glossentryname{##1}} &
-    \glossentrydesc{##1}\glspostdescription\dotfill ##2\tabularnewline
+    \glsentryitem{##1}\glstarget{##1}{\glossentryname{##1}}% 
+    & \glossentrydesc{##1}\glspostdescription\dotfill ##2\tabularnewline%
   }%
+  \addtocounter{table}{-1}
 }
-\setlength{\glsdescwidth}{14.5cm}
 
 % Sempre expande se o usuário pedir
 \renewrobustcmd*{\glsfirst}[2][]{\glsreset{#2}\gls[#1]{#2}}
@@ -336,17 +336,18 @@
 % \listadesiglas*
 % 
 % Gera a lista de siglas. A versão com * não gera entrada no \tableofcontents
-\newcommand{\listadesiglas}[0]{%
+\newcommand{\listadesiglas}[1][5em]{%
   \cleardoublepage%
+  \setlength{\glsdescwidth}{\dimexpr 16cm-#1-\tabcolsep\relax}
   \printnoidxglossary[%
     title=\listadesiglasname,% definido no abntex2
     type=\acronymtype,%
     style=longdotted]%
   \clearpage%
 }
-\WithSuffix\newcommand\listadesiglas*{%
+\WithSuffix\newcommand\listadesiglas*[1][5em]{%
   \begin{KeepFromToc}%
-    \listadesiglas%
+    \listadesiglas[#1]%
   \end{KeepFromToc}%
 }
 
