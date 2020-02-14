@@ -127,7 +127,7 @@
 }
 \addto\extrasbrazil{%
   \def\lapesdthesislistingname{Listagem}%
-  \def\lapesdthesislistoflistingsname{Lista de Listagems}%
+  \def\lapesdthesislistoflistingsname{Lista de Listagens}%
   \def\lapesdthesisalgorithmname{Algoritmo}%
   \def\lapesdthesislistofalgorithmsname{Lista de Algoritmos}%
   \def\lapesdthesisdefinitionname{Definição}%
