@@ -241,23 +241,10 @@
 
 \RequirePackage{algorithmicx}
 \RequirePackage[noend]{algpseudocode}
-\DeclareFloatingEnvironment[%
-  within=none,%
-  listname=\lapesdthesislistofalgorithmsname,%
-  name=\lapesdthesisalgorithmname%
-]{algorithm}
 
-\pretocmd{\listofalgorithms}{%
-  \begingroup%
-  \renewcommand{\figurename}{\lapesdthesisalgorithmname}%
-}{}{}
-\apptocmd{\listofalgorithms}{\endgroup}{}{}
-% Cria versão * que não adiciona no \tableofcontents
-\WithSuffix\newcommand\listofalgorithms*{%
-  \begin{KeepFromToc}%
-    \listofalgorithms%
-  \end{KeepFromToc}%
-}
+% Ambiente algorithm e \listofalgorithms agora são configurados no 
+% ufsc-thesis-rn46-2019.cls
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%% Configura o glossaries (incluindo macros de conveniencia)      %%%
