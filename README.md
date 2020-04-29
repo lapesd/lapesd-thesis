@@ -1,10 +1,10 @@
 # lapesd-thesis
 
-This is a template for writing thesis and dissertations (kind of) according to rules of the Federal University of Santa Catarina adopted after Resolution 46/2019/CPG. This is a customization of the [ufsc-thesis-rn46-2019](https://github.com/alexishuf/ufsc-thesis-rn46-2019) class.
+This is a template for writing theses and dissertations (kind of) according to rules of the Federal University of Santa Catarina adopted after Resolution 46/2019/CPG. This is a customization of the [ufsc-thesis-rn46-2019](https://github.com/alexishuf/ufsc-thesis-rn46-2019) class.
 
 ## Warning
 
-This template is **highly opinionated** and not a prime example of flexibility. In the interest of providing a configuration-free experience, many decisions are done inside the .cls. Also, since its audience is small, the **documentation consists of comments inside the .cls file and the example**. You can get a non-opinionated and well documented class that *only provides the university formatting rules* at the upstream class [ufsc-thesis-rn46-2019](https://github.com/alexishuf/ufsc-thesis-rn46-2019).
+This template is **highly opinionated** and not a prime example of flexibility. In the interest of providing a configuration-free experience, many decisions are done inside the .cls. Also, since its audience is small, the **documentation consists of comments inside the .cls file and the example**. You can get a non-opinionated and well-documented class that *only provides the university formatting rules* at the upstream class [ufsc-thesis-rn46-2019](https://github.com/alexishuf/ufsc-thesis-rn46-2019).
 
 # Usage
 
@@ -22,7 +22,7 @@ This template is **highly opinionated** and not a prime example of flexibility. 
 
 ## Packages included and configured
 
-Note that this list is of packages load in addition to those in the upstream class. It also does not include packages such as `twoopt`, used for creating macros. 
+There is a list of packages loaded in addition to those in the upstream class. It does not include packages such as `twoopt`, used for creating macros.
 
 - `\usepackage[utf8]{inputenc}` is enforced
 - `\usepackage[T1]{fontenc}` is enforced
@@ -47,7 +47,7 @@ Note that this list is of packages load in addition to those in the upstream cla
 
 These packages should be present in nearly all texlive instalations. In case of missing package errors, check the list of available and installed `texlive-*` packages on your system.
 
-The `minted` package requires pygments, a python module that has a pygmentize command line utility. Installation Check installation instructions for your particular system/package manager. On MacOS one must do `sudo easy_install Pygments`. On arch linux, the `pacman` package is `community/pygmentize`.
+The `minted` package requires pygments, a python module that has a pygmentize command line utility. Check installation instructions for your particular system/package manager. On MacOS one must do `sudo easy_install Pygments`. On arch linux, the `pacman` package is `community/pygmentize`.
 
 ## Non-trivial configurations and new macros
 
@@ -60,7 +60,7 @@ Package pifont is used to provide the following symbols
 
 ### Subfigures
 
-`memoir` (upstream of [abnTeX2](https://github.com/abntex/abntex2/) should be used to deal with subfigures. A subfigure environment for macro \subcaption is already provided. In addition the following convenience macro is defined to provide a centered figure with a `\label` of  `labelname` (for cross-referencing with `\ref` and `\autoref`) and `\caption` typeset within a top-anchored minipage of the given width:
+`memoir` (upstream of [abnTeX2](https://github.com/abntex/abntex2/)) should be used to deal with subfigures. A subfigure environment for macro \subcaption is already provided. In addition, the following convenience macro is defined to provide a centered figure with a `\label` of  `labelname` (for cross-referencing with `\ref` and `\autoref`) and `\caption` typeset within a top-anchored minipage of the given width:
 
 ```{latex}
 \subcaptionminipage[labelname]%
@@ -71,7 +71,7 @@ Package pifont is used to provide the following symbols
 
 ### Listings and code with minted
 
-Minted is configured both for use in a `\begin{listing}...\end{listing}` environment that replaces `figure` and for inlining in text. For the float usage, a `\listoflistings` macro is already configured. For inlining, there are two variants. The following macros are configured for inlining (there is always a `\mf<langcode>` version that uses `\footnotesize`) :
+Minted is configured both for use in a `\begin{listing}...\end{listing}` environment that replaces `figure` and for inlining in text. For the float usage, a `\listoflistings` macro is already configured. For inlining, there are two variants. The following macros are configured for inlining (there is always a `\mf<langcode>` version that uses `\footnotesize`):
 
 - `\m`: text
 - `\mc`: C
@@ -84,11 +84,11 @@ Minted is configured both for use in a `\begin{listing}...\end{listing}` environ
 
 ### Algorithms (pseudo-code)
 
-Package `algorithmicx` and `algpseudocode` are used for this. Like minted, an `\begin{algorithm}...\end{algorithm}` environment as well as a `\listofalgorithms` macro is provided.
+Package `algorithmicx` and `algpseudocode` are used for this. Like minted, an `\begin{algorithm}...\end{algorithm}` environment as well as a `\listofalgorithms` macro are provided.
 
 ### Indexing
 
-Achieved through `makeidx`. Indexing is less common than it should. Check the [wikibooks section on indexing](https://en.wikibooks.org/wiki/LaTeX/Indexing) for a quick start. This class add three convenience macros to provide hyperlinks within the text to the point where index terms were defined.
+Achieved through `makeidx`. Indexing is less common than it should. Check the [wikibooks section on indexing](https://en.wikibooks.org/wiki/LaTeX/Indexing) for a quick start. This class adds three convenience macros to provide hyperlinks within the text to the point where index terms were defined.
 
 ```{latex}
 \xindex[labelname]{index entry}
@@ -104,7 +104,7 @@ Typesets `term` or `Term` in the case of `\indexTerm` with an hyperlink to the p
 
 ### Glossaries
 
-The `glossaries` package is used with what its manual calls "Option 1". This relies on the document author maintaining the acronym definitions and glossary entries sorted. For easier house-keeping, the template keeps the definitions in separate files. Two macros are provided by this class to generate the list of acronyms and the glossary (the * causes them to not appear in `\tableofcontents`):
+The `glossaries` package is used with what its manual calls "Option 1". This relies on the document author maintaining the acronym definitions and glossary entries sorted. For easier house-keeping, the template keeps the definitions in separate files. Two macros are provided by this class to generate the list of acronyms and the glossary (the * causes them not to appear in `\tableofcontents`):
 
 ```{latex}
 \listadesiglas*
@@ -120,7 +120,7 @@ In the presence of large acronyms, the table may overflow into the right margin 
 
 #### Referencing an acronym or glossary entry
 
-If you use he custom macros to define acronyms and entries, you can use the acryonym and the entries themselves as macros. For example, supose an acronym `DHT` and a glossary entry `proxy`:
+If you use the custom macros to define acronyms and entries, you can use the acryonym and the entries themselves as macros. For example, supose an acronym `DHT` and a glossary entry `proxy`:
 
 - `\DHT` produces Distributed Has Table (DHT) on first use
 - `\DHT` produces DHT on subsequent uses
@@ -129,12 +129,11 @@ If you use he custom macros to define acronyms and entries, you can use the acry
 - `\proxy` produces proxy, linking to its entry in the glossary
 - `\proxys` produces proxies (as configured in the entry definition), linking to its entry in the glossary
 
-The macros `\Glsfirst*` from glossaries are modified to enforce expansion of the acronym, even if it was already expanded before
+The macros `\Glsfirst*` from glossaries are modified to enforce expansion of the acronym, even if it was already expanded before.
 
 #### Defining acronym entries
 
 This must be done using custom macros `\tnewacronym` and `\xnewacronym`. You can directly use glossaries macros, but the referencing functionality above will not work. These macros should be used as follows:
-
 
 ```{latex}
 \xnewacronym[CMD][kv_opts]{ACRONYM}{expansion}
@@ -144,9 +143,10 @@ This macro registers the acronym with `glossaries`. The acronym will appear in t
 ```{latex}
 \tnewacronym[kv_opts]{ACRONYM}{expansion}
 ```
+
 This macro generates an acronym that will never be expanded. However it will appear in the list of acronyms.
 
-You are are **highly encouraged to see the example acronym definitions*  at the `acronyms.tex` file.
+You are **highly encouraged to see the example acronym definitions* at the `acronyms.tex` file.
 
 
 #### Defining glossary entries
@@ -157,12 +157,12 @@ Likewise, in order to generate `\entry` macros for every entry, a macro named `\
 \xnewglossaryentry{label}{kv_list}
 ```
 
-This macro will generate macros \label and \labels, whose functionality was discussed earlier in the context of referencing entries. Again, you are **highly encouraged to see the example acronym definitions*  at the `glossary.tex` file.
+This macro will generate macros \label and \labels, whose functionality was discussed earlier in the context of referencing entries. Again, you are **highly encouraged to see the example acronym definitions* at the `glossary.tex` file.
 
 ## Makefile
 
-The Makefile should be straightforward. It detects changes in any .tex, .bib or .svg file in order to determine a rebuild of PDF file.
+The Makefile should be straightforward. It detects changes in any `.tex`,  `.bib` or `.svg` file in order to determine a rebuild of PDF file.
 
-The Makefile converts all PDFs inside the `imgs/` diretocry into pdfs whenever it detects changes. This is done using [inkscape](https://inkscape.org/), which must be available at the system. There is a Makefile function, svg2pdf that allows cropping the PDF generation to a named group within the SVG. This is useful from creating anymated slides from SVGs.
+The Makefile converts all PDFs inside the `imgs/` diretocry into PDFs whenever it detects changes. This is done using [inkscape](https://inkscape.org/), which must be available at the system. There is a Makefile function (`svg2pdf`) that allows cropping the PDF generation to a named group within the SVG. This is useful from creating anymated slides from SVGs.
 
-The  `main.robust.pdf` file is a version of the `main.pdf` file generated by pdflatex that is written in PDF 1.4 and has all fonts embedded. This is not all that is needed for PDF/A compliance, but is required by some publishers (IEEE and Elsevier). Therefore this can be considered a more portable PDF file.
+The  `main.robust.pdf` file is a version of the `main.pdf` file generated by `pdflatex` that is written in PDF 1.4 and has all fonts embedded. This is not all that is needed for PDF/A compliance, but is required by some publishers (IEEE and Elsevier). Therefore this can be considered a more portable PDF file.
