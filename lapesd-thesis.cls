@@ -122,6 +122,7 @@
   \def\lapesdthesisalgorithmname{Algorithm}%
   \def\lapesdthesislistofalgorithmsname{List of Algorithms}%
   \def\lapesdthesisdefinitionname{Definition}%
+  \def\lapesdthesislemmaname{Lemma}%
   \def\lapesdthesistheoremname{Theorem}%
   \def\lapesdthesisproofname{Proof}%  
 }
@@ -131,6 +132,7 @@
   \def\lapesdthesisalgorithmname{Algoritmo}%
   \def\lapesdthesislistofalgorithmsname{Lista de Algoritmos}%
   \def\lapesdthesisdefinitionname{Definição}%
+  \def\lapesdthesislemmaname{Lema}%
   \def\lapesdthesistheoremname{Teorema}%
   \def\lapesdthesisproofname{Prova}%
 }
@@ -399,6 +401,7 @@
 \RequirePackage{amsthm}
 \theoremstyle{definition}
 \newtheorem{defn}{\lapesdthesisdefinitionname}[chapter]
+\newtheorem{lemma}{\lapesdthesislemmaname}[chapter]
 \newtheorem{theorem}{\lapesdthesistheoremname}[chapter]
 \newtheorem{theoremproof}{\lapesdthesisproofname}[chapter]
 
