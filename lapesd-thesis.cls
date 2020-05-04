@@ -35,6 +35,7 @@
 \iflapesdthesis@embeddlogo
   \PassOptionsToClass{embeddedlogo}{ufsc-thesis-rn46-2019/ufsc-thesis-rn46-2019}
 \fi
+\PassOptionsToClass{inline}{enumitem}
 \LoadClass[%
   \lapesdthesis@font
 ]{ufsc-thesis-rn46-2019/ufsc-thesis-rn46-2019}
