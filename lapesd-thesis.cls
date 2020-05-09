@@ -5,7 +5,7 @@
 % Versão  do LaTeX
 \NeedsTeXFormat{LaTeX2e}
 % Declara a classe (e versão)
-\ProvidesClass{lapesd-thesis}[2019/08/03 v0.1 lapesd-thesis]
+\ProvidesClass{lapesd-thesis}[2020/05/09 v0.2 lapesd-thesis]
 
 % Não há razão para tolerar qualquer coisa além de UTF-8
 \RequirePackage[utf8]{inputenc}
@@ -363,6 +363,7 @@
 \newcommand{\imprimirglossario}[0]{%
   \cleardoublepage
   \label{glossario}
+  \PRIVATEbookmarkthis{\glossaryname} % from abntex2.cls (not so private)
   \printnoidxglossary[type=main]
 }
 
