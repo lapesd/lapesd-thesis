@@ -23,19 +23,33 @@ Resultado do glossário:
 
 Resultado de \mla|index|: primeiro um link normal \indexterm{tomate}, depois um capitalizado \indexTerm{tomate}.
 
+Exemplo de autoref com \mla|amsthm|: \autoref{def:definition}, \autoref{def:defn}, \autoref{lemma:1}, \autoref{theorem:1}, \autoref{proof:1}.
+
+\begin{definition}
+  \label{def:definition}
+  Exemplo de definição.
+\end{definition}
+
 \begin{defn}
-  Exemplo de definição
+  \label{def:defn}
+  Exemplo de definição com ambiente defn.
 \end{defn}
 
 \begin{lemma}
-  Exemplo de Lema
+  \label{lemma:1}
+  Exemplo de Lema.
 \end{lemma}
 
 \begin{theorem}
-  Exemplo de teorema
+  \label{theorem:1}
+  Exemplo de teorema.
+  \begin{proof}
+    Exemplo de prova dentro do teorema \qed
+  \end{proof}
 \end{theorem}
 
 \begin{theoremproof}
+  \label{proof:1}
   Exemplo de prova \qed
 \end{theoremproof}
 

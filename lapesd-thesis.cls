@@ -125,7 +125,11 @@
   \def\lapesdthesisdefinitionname{Definition}%
   \def\lapesdthesislemmaname{Lemma}%
   \def\lapesdthesistheoremname{Theorem}%
-  \def\lapesdthesisproofname{Proof}%  
+  \def\lapesdthesisproofname{Proof}%
+  \def\definitionautorefname{\lapesdthesisdefinitionname}%
+  \def\lemmaautorefname{\lapesdthesislemmaname}%
+  \def\theoremautorefname{\lapesdthesistheoremname}%
+  \def\theoremproofautorefname{\lapesdthesisproofname}%
 }
 \addto\extrasbrazil{%
   \def\lapesdthesislistingname{Listagem}%
@@ -136,6 +140,10 @@
   \def\lapesdthesislemmaname{Lema}%
   \def\lapesdthesistheoremname{Teorema}%
   \def\lapesdthesisproofname{Prova}%
+  \def\definitionautorefname{\lapesdthesisdefinitionname}%
+  \def\lemmaautorefname{\lapesdthesislemmaname}%
+  \def\theoremautorefname{\lapesdthesistheoremname}%
+  \def\theoremproofautorefname{\lapesdthesisproofname}%
 }
 % Carrega as modificações
 \RequirePackage{iflang}
@@ -401,7 +409,8 @@
 \RequirePackage{amssymb}
 \RequirePackage{amsthm}
 \theoremstyle{definition}
-\newtheorem{defn}{\lapesdthesisdefinitionname}[chapter]
+\newtheorem{definition}{\lapesdthesisdefinitionname}[chapter]
+\newenvironment{defn}{\begin{definition}}{\end{definition}}
 \newtheorem{lemma}{\lapesdthesislemmaname}[chapter]
 \newtheorem{theorem}{\lapesdthesistheoremname}[chapter]
 \newtheorem{theoremproof}{\lapesdthesisproofname}[chapter]

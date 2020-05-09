@@ -51,6 +51,18 @@ The `minted` package requires pygments, a python module that has a pygmentize co
 
 ## Non-trivial configurations and new macros
 
+### amsthm
+
+Four environments are defined using the style Definition (formated as **Name Chapter.Sequence.**):
+
+- `definition`
+- `defn` (as an alias to `definition`, retaining the same counter)
+- `lemma`
+- `theoremproof`
+   - This is a new environment, to prove a theorem you can do it from within the theorem itself, using the `proof` environment
+
+`\autoref`, from the `hyperref` package is configured (in english or portuguese) with appropriate labels for each of these environments (`proof` is not numbered, only `theoremproof` is). 
+
 ### New symbols
 
 Package pifont is used to provide the following symbols
