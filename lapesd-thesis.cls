@@ -5,7 +5,7 @@
 % Versão  do LaTeX
 \NeedsTeXFormat{LaTeX2e}
 % Declara a classe (e versão)
-\ProvidesClass{lapesd-thesis}[2020/05/09 v0.2 lapesd-thesis]
+\ProvidesClass{lapesd-thesis}[2020/05/13 v0.2.1 lapesd-thesis]
 
 % Não há razão para tolerar qualquer coisa além de UTF-8
 \RequirePackage[utf8]{inputenc}
@@ -200,6 +200,7 @@
   listname=\lapesdthesislistoflistingsname,%
   name=\lapesdthesislistingname%
 }
+\newsubfloat{listing}
 
 \pretocmd{\listoflistings}{%
   \begingroup%
