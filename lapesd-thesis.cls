@@ -108,15 +108,6 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%% i18n                                                           %%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% \autoref{} de subfigure precisa ter o nome definido. Iss deve ser
-% feito via babel para evitar desencontros caso algum outro pacote já
-% tenha alterado esse nome.
-\addto\captionsenglish{%
-  \def\subfigureautorefname{\figureautorefname}%
-}
-\addto\captionsbrazil{%
-  \def\subfigureautorefname{\figureautorefname}%
-}
 \addto\extrasenglish{%
   \def\lapesdthesislistingname{Listing}%
   \def\lapesdthesislistoflistingsname{List of Listings}%
