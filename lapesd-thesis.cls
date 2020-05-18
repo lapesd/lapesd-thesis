@@ -183,7 +183,9 @@
 \newcommand{\subcaptionminipage}[4][]{%
   \begin{minipage}[t]{#2}%
     \centering%
+    \vspace{0.7em}%
     \subcaption{#3\ifstrempty{#1}{}{\label{#1}}}%
+    \vspace{0.5em}%
     #4%
   \end{minipage}%
 }
