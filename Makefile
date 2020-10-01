@@ -72,7 +72,7 @@ main.pdf: $(srcs) main.aux main.blg main.ilg
 	$(LTX) main.tex; \
 	$(LTX) main.tex || true
 
-# Converts main.pdf to PDF version 1.4 and embedd all fonts
-# This is required by IEEE (this is done by PDF Xpress) and Elsevier journals
-main.robust.pdf: main.pdf
-	gs -dNOPAUSE -dBATCH -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dEmbedAllFonts=true -sOutputFile="$@" -f "$<" 
+# Generate PDF/A-1b for BU submission
+main.pdfa.pdf: main.pdf
+	make -C pdfa-gs-converter all
+	pdfa-gs-converter/pdfa-gs-converter.sh "$<" "$@"

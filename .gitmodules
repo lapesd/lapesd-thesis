@@ -1,3 +1,6 @@
 [submodule "ufsc-thesis-rn46-2019"]
 	path = ufsc-thesis-rn46-2019
 	url = https://github.com/alexishuf/ufsc-thesis-rn46-2019.git
+[submodule "pdfa-gs-converter"]
+	path = pdfa-gs-converter
+	url = https://github.com/alexishuf/pdfa-gs-converter/
