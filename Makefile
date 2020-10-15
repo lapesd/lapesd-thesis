@@ -13,14 +13,14 @@ srcs=$(wildcard *.tex) $(wildcard *.bib)
 svgs=$(wildcard imgs/*.svg)
 pdfs=$(svgs:.svg=.pdf)
 
-all: imgs main.robust.pdf
+all: imgs main.pdfa.pdf
 
 imgs: $(pdfs)
 
 .PHONY: all imgs clean
 
-clean: 
-	rm -fr *.64 main-logo.pdf _minted-* *.aux *.bbl *.blg *.brf *.out *.synctex.gz *.log main.pdf main.robust.pdf *.idx *.ilg *.ind *.lof *.lot *.lol *.loalgorithm *.glsdefs *.xdy *.toc *.acn *.glo *.ist *.prv *.fls *.fdb_latexmk _region*  *~ auto imgs/*.tmp.pdf {imgs,plots}/*-eps-converted-to.pdf; 
+clean:
+	rm -fr *.64 main-logo.pdf _minted-* *.aux *.bbl *.blg *.brf *.out *.synctex.gz *.log main.pdf main.robust.pdf *.idx *.ilg *.ind *.lof *.lot *.lol *.loalgorithm *.glsdefs *.xdy *.toc *.acn *.glo *.ist *.prv *.fls *.fdb_latexmk _region*  *~ auto imgs/*.tmp.pdf {imgs,plots}/*-eps-converted-to.pdf;
 
 
 ###################################################
@@ -30,7 +30,7 @@ clean:
 INKS_VER:=$(shell (inkscape --version 2>&1 | grep -E 'Inkscape [1-9]' &>/dev/null) && echo 1 || echo 0)
 INKSCAPE=$(INKS) $(if $(subst 0,,$(INKS_VER)),,-z)
 define inkscape2pdf
-	$(INKSCAPE) $(3) $(if $(subst 0,,$(INKS_VER)),--export-filename,-A)=$(2) $(1) 
+	$(INKSCAPE) $(3) $(if $(subst 0,,$(INKS_VER)),--export-filename,-A)=$(2) $(1)
 endef
 
 # directly convert a SVG to PDF. The SVG's contents will be cropped to the page
