@@ -10,7 +10,6 @@
 % Não há razão para tolerar qualquer coisa além de UTF-8
 \RequirePackage[utf8]{inputenc}
 
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%% Declarações e tratamento inicial de opções                     %%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -274,7 +273,7 @@
   \setglossarystyle{long}%
   \renewcommand{\glossentry}[2]{%
     \glsentryitem{##1}\glstarget{##1}{\glossentryname{##1}}% 
-    & \glossentrydesc{##1}\glspostdescription\dotfill ##2\tabularnewline%
+    & \glossentrydesc{##1}\glspostdescription\cftdotfill{\cftdotsep} ##2\tabularnewline%
   }%
   \addtocounter{table}{-1}
 }
