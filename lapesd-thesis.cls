@@ -25,19 +25,19 @@
 \DeclareOption{noembeddlogo}{\lapesdthesis@embeddlogofalse}
 
 % Todas as opções que não foram listadas anteriormente são redirecionadas 
-\DeclareOption*{\PassOptionsToClass{\CurrentOption}{ufsc-thesis-rn46-2019/ufsc-thesis-rn46-2019}}
+\DeclareOption*{\PassOptionsToClass{\CurrentOption}{ufsc-thesis-rn46-2019}}
 
 % Faz a mágica acontecer
 \ProcessOptions\relax
 
 % Carrega como base a classe ufsc-thesis-rn46-2019
 \iflapesdthesis@embeddlogo
-  \PassOptionsToClass{embeddedlogo}{ufsc-thesis-rn46-2019/ufsc-thesis-rn46-2019}
+  \PassOptionsToClass{embeddedlogo}{ufsc-thesis-rn46-2019}
 \fi
 \PassOptionsToClass{inline}{enumitem}
 \LoadClass[%
   \lapesdthesis@font
-]{ufsc-thesis-rn46-2019/ufsc-thesis-rn46-2019}
+]{ufsc-thesis-rn46-2019}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

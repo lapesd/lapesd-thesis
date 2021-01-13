@@ -8,6 +8,27 @@ This template is **highly opinionated** and not a prime example of flexibility. 
 
 # Usage
 
+## Provisioning the lapesd-thesis class
+
+There are 3 options to get/update the class file:
+
+1. `git clone` this repository, create a branch and update by `git merge`ing `master` into your branch
+    - This workflow is not compatible with overleaf users, and may cause unecessary conflicts with non-`.cls` files.
+2.  Copy contents of this repository and update by manually downloading the [lapesd-thesis.cls](https://raw.githubusercontent.com/lapesd/lapesd-thesis/master/lapesd-thesis.cls)  and [ufsc-thesis-rn46-2019.cls](https://raw.githubusercontent.com/alexishuf/ufsc-thesis-rn46-2019/master/ufsc-thesis-rn46-2019.cls) files from github.
+3. Use a submodule (easier updating only the class files):
+
+The submodule approach requires creating two symbolic links:
+```bash
+git submodule add https://github.com/lapesd/lapesd-thesis.git
+git submodule update --init --recursive 
+ln -s lapesd-thesis/lapesd-thesis.cls
+ln -s lapesd-thesis/ufsc-thesis-rn46-2019/ufsc-thesis-rn46-2019.cls
+```
+
+After setup, the `.cls` files can be updated with a single `git submodule update --recursive` call.
+
+## Project layout
+
 **See the example** in this repository, starting from [main.tex](https://github.com/lapesd/lapesd-thesis/blob/master/main.tex). File structure is as follows:
 
 - `lapesd-thesis.cls`: The class file, extends [ufsc-thesis-rn46-2019](https://github.com/alexishuf/ufsc-thesis-rn46-2019)
@@ -17,7 +38,7 @@ This template is **highly opinionated** and not a prime example of flexibility. 
     - `prolog.tex`: Pre-textual elements
     - `body.tex`: Textual elements
     - `epilog.tex`: Post-textual elements
-- `imgs/`: Image files. The .svg's are compiled to PDF automatically
+- `imgs/`: Image files. The .svg's are compiled to PDF by the Makefile
 - `Makefile`: self-descriptive
 
 ## Packages included and configured
