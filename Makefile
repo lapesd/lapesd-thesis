@@ -72,7 +72,15 @@ main.pdf: $(srcs) main.aux main.blg main.ilg
 	$(LTX) main.tex; \
 	$(LTX) main.tex || true
 
+###################################################
+# PDF/A                                           #
+###################################################
+
+PDFA_URL="https://github.com/alexishuf/pdfa-gs-converter/releases/download/v0.2/pdfa-gs-converter.sh"
+PDFA=pdfa-gs-converter
 # Generate PDF/A-1b for BU submission
 main.pdfa.pdf: main.pdf
-	make -C pdfa-gs-converter all
-	pdfa-gs-converter/pdfa-gs-converter.sh "$<" "$@"
+	(test -d $(PDFA) && make -C $(PDFA) all && $(PDFA)/$(PDFA).sh  "$<" "$@") ||\
+	(test -d lapesd-thesis/$(PDFA) &&\
+		make -C lapesd-thesis/$(PDFA) && lapesd-thesis/$(PDFA)/$(PDFA).sh "$<" "$@") ||\
+	((test -f $(PDFA).sh || curl -Lo $(PDFA).sh $(PDFA_URL)) && bash $(PDFA).sh "$<" "$@")
