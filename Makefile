@@ -41,7 +41,7 @@ imgs/%.pdf: imgs/%.svg
 #Workaround: generate a pdf of the whole drawing (-D, beyond page borders); get bottom:left:width:height of object; convert px to PostScript pts; crop from the pdf
 #Quirk: inkscape -Y has top-left corner of page at origin
 define svg2pdf
-	$(call inkscape2pdf,$(1).svg,$(3).tmp.pdf,-D)
+	$(call inkscape2pdf,$(1).svg,$(3).tmp.pdf,--export-area-drawing)
 	PTS=$$($(PDFINFO) $(3).tmp.pdf | grep 'Page size' | sed 's/[^0-9]*\([0-9]*\.[0-9]*\)[^0-9].*/\1/'); \
 	IW=$$($(INKSCAPE) --query-width $(1).svg); \
 	FAC=$$(echo "scale=3; 100 * $$PTS / $$IW" | bc); \
