@@ -59,7 +59,7 @@ endef
 ###################################################
 
 main.aux: $(srcs) $(pdfs) $(plotspdfs)
-	$(LTX) main.tex; $(LTX) main.tex || true
+	$(LTX) main.tex &>/dev/null ; $(LTX) main.tex &>/dev/null || true
 
 # Create index file
 main.ilg: main.aux $(srcs)
@@ -69,8 +69,8 @@ main.blg: main.aux $(srcs)
 	$(BIBTEX) main.aux
 
 main.pdf: $(srcs) main.aux main.blg main.ilg
-	$(LTX) main.tex; \
-	$(LTX) main.tex || true
+	$(LTX) main.tex &>/dev/null ; \
+	$(LTX) main.tex 2>&1 | tee main.log
 
 ###################################################
 # PDF/A                                           #
