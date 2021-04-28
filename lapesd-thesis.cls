@@ -18,6 +18,8 @@
 % Mytesrious harmless warnings from glossaries
 \WarningFilter{glossaries}{Overriding \printglossary}
 \WarningFilter{glossaries}{Overriding `theglossary'}
+% https://tex.stackexchange.com/a/78020
+\pdfsuppresswarningpagegroup=1
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
