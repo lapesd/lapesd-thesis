@@ -5,7 +5,7 @@
 % Versão  do LaTeX
 \NeedsTeXFormat{LaTeX2e}
 % Declara a classe (e versão)
-\ProvidesClass{lapesd-thesis}[2020/05/13 v0.2.1 lapesd-thesis]
+\ProvidesClass{lapesd-thesis}[2021/04/28 v0.3 lapesd-thesis]
 
 % Não há razão para tolerar qualquer coisa além de UTF-8
 \RequirePackage[utf8]{inputenc}
@@ -247,9 +247,6 @@
   linenos,%
   xleftmargin=2em%
 }
-
-% Escolhe fonte para \texttt
-\renewcommand*{\ttdefault}{cmvtt}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%% Configura o algorithmicx                                       %%%
