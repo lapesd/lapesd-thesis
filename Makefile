@@ -78,9 +78,24 @@ main.pdf: $(srcs) main.aux main.blg main.ilg
 
 PDFA_URL="https://github.com/alexishuf/pdfa-gs-converter/releases/download/v0.2/pdfa-gs-converter.sh"
 PDFA=pdfa-gs-converter
-# Generate PDF/A-1b for BU submission
+
+#pdfda-gs-converter may be in different places depending on how lapesd-thesis is used:
+# - we are a clone or copy of lapesd-thesis
+# - lapesd-thesis is a subdir/submodule
+# - someone just copied the class and the Makefile: download pdfa-gs-converter
+#   - if download fails, assume it is on $PATH and hope for the best
+#
+# In the first two cases, it may also happen that the pdfa-gs-converter
+# submodule was not pulled or that it was somehow lost. In such scenarios,
+# testing continues until pdfa-gs-converter.sh is downloaded
 main.pdfa.pdf: main.pdf
-	(test -d $(PDFA) && make -C $(PDFA) all && $(PDFA)/$(PDFA).sh  "$<" "$@") ||\
-	(test -d lapesd-thesis/$(PDFA) &&\
-		make -C lapesd-thesis/$(PDFA) && lapesd-thesis/$(PDFA)/$(PDFA).sh "$<" "$@") ||\
-	((test -f $(PDFA).sh || curl -Lo $(PDFA).sh $(PDFA_URL)) && bash $(PDFA).sh "$<" "$@")
+	PDFA_CMD=$$( \
+		(test -d $(PDFA) && make -C $(PDFA) all &>/dev/null && echo $(PDFA)/$(PDFA).sh) ||\
+		(test -d lapesd-thesis/$(PDFA) && make -C lapesd-thesis/$(PDFA) &>/dev/null &&\
+			echo lapesd-thesis/$(PDFA)/$(PDFA).sh) ||\
+		((test -f $(PDFA.sh) || curl -Lo $(PDFA).sh $(PDFA_URL)) && echo bash ./$(PDFA).sh) ||\
+		(echo $(PDFA).sh)\
+	); \
+	$$PDFA_CMD "$<" "$@" 2>&1\
+		| grep -v "nnotation set to non-printing" \
+		| grep -v "annotation will not be present in output file"
