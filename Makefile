@@ -13,20 +13,29 @@ srcs=$(wildcard *.tex) $(wildcard *.bib)
 svgs=$(wildcard imgs/*.svg)
 pdfs=$(svgs:.svg=.pdf)
 
+basename:=$(shell (grep -rE '\\documentclass.*lapesd-thesis' | cut -d : -f 1 | grep -E '.tex$$' | xargs -n 1 bash -c 'echo $$(echo $$@ | wc -c):$$@' a | sed -E 's/^([0-9]):/00\1:/' | sed -E 's/^([0-9][0-9]):/0\1:/' | sort -u | head -n 1 | sed -E 's/^[0-9]+:(.*).tex$$/\1/g' > basename.make.log && test "$$(cat basename.make.log)" != "001:" && cat basename.make.log && rm -f basename.make.log)  || echo main)
+
 RED=$(shell tput sgr0 ; tput setab 1 ; tput setaf 7)
 YELLOW=$(shell tput sgr0 ; tput setab 3 ; tput setaf 0)
 DIM=$(shell tput sgr0 ; tput dim)
 BOLD=$(shell tput bold)
 NORM=$(shell tput sgr0)
 
-all: imgs main.pdfa.pdf
+###################################################
+# phony targets                                   #
+###################################################
+
+all: imgs $(basename).pdfa.pdf
 
 imgs: $(pdfs)
 
 .PHONY: all imgs clean
 
+# Avoid deletion by make (chained pattern rules)
+.SECONDARY: $(basename).aux $(basename).blg $(basename).ilg $(basename).pdf
+
 clean:
-	rm -fr *.64 main-logo.pdf _minted-* *.aux *.bbl *.blg *.brf *.out *.synctex.gz *.log main.pdf main.robust.pdf *.idx *.ilg *.ind *.lof *.lot *.lol *.loalgorithm *.glsdefs *.xdy *.toc *.acn *.glo *.ist *.prv *.fls *.fdb_latexmk _region*  *~ auto imgs/*.tmp.pdf {imgs,plots}/*-eps-converted-to.pdf;
+	rm -fr *.64 main-logo.pdf _minted-* *.aux *.bbl *.blg *.brf *.out *.synctex.gz *.log "$(basename).pdf" "$(basename).pdfa.pdf" *.idx *.ilg *.ind *.lof *.lot *.lol *.loalgorithm *.glsdefs *.xdy *.toc *.acn *.glo *.ist *.prv *.fls *.fdb_latexmk _region*  *~ auto imgs/*.tmp.pdf {imgs,plots}/*-eps-converted-to.pdf;
 
 
 ###################################################
@@ -64,41 +73,43 @@ endef
 # main targets                                    #
 ###################################################
 
-main.aux: $(srcs) $(pdfs) $(plotspdfs)
+%.aux: %.tex $(srcs) $(pdfs) $(plotspdfs)
 	@for i in 1 2 3; do \
-		echo '$(LTX) main.tex &>/dev/null' ; \
-		($(LTX) main.tex 2>&1 | grep 'Label(s) may have changed' | &>/dev/null) || break; \
+		echo '$(LTX) "$<" &>/dev/null' ; \
+		($(LTX) "$<" 2>&1 | grep 'Label(s) may have changed' | &>/dev/null) || break; \
 	done; true
 
 # Create index file
-main.ilg: main.aux $(srcs)
-	@echo $(MAKEINDEX) main.idx $(DIM); \
-	$(MAKEINDEX) main.idx &>main.make.log; RET=$$? ;\
-	sed -E 's/[Ww]arning/$(YELLOW)\0$(DIM)/' <main.make.log \
-		| sed -E 's/[Ee]rror/$(RED)\0$(DIM)/'; echo $(NORM); \
-	rm -f main.make.log ; \
+%.ilg: %.aux
+	@echo $(MAKEINDEX) "$*.idx" $(DIM); \
+	$(MAKEINDEX) "$*.idx" &>"$*.idx.make.log"; RET=$$? ;\
+	sed -E 's/(^| 0|[Nn][Oo])( +)[Ww](arnings?)/\1\2x\3/' <"$*.idx.make.log" \
+		| sed -E 's/[Ww]arnings?/$(YELLOW)\0$(DIM)/'  \
+		| sed -E 's/[Ee]rrors?/$(RED)\0$(DIM)/' \
+		| sed -E 's/xarning/warning/'; echo $(NORM); \
+	rm -f "$*.idx.make.log" ; \
 	test "$$RET" == 0
 
-main.blg: main.aux $(srcs)
-	@echo $(BIBTEX) main.aux $(DIM); \
-	$(BIBTEX) main.aux &> main.make.log; RET=$$? ;\
-	sed -E 's/[Ww]arning/$(YELLOW)\0$(DIM)/' <main.make.log \
+%.blg: %.aux
+	@echo $(BIBTEX) "$<" $(DIM); \
+	$(BIBTEX) "$<" &> "$@.make.log"; RET=$$? ;\
+	sed -E 's/[Ww]arning/$(YELLOW)\0$(DIM)/' <"$@.make.log" \
 		| sed -E 's/[Ee]rror/$(RED)\0$(DIM)/'; echo $(NORM) ;\
-	rm -f main.make.log ;\
+	rm -f "$@.make.log" ;\
 	test "$$RET" == 0
 
-main.pdf: $(srcs) main.aux main.blg main.ilg
+%.pdf: %.tex %.aux %.blg %.ilg
 	@ RET=0; \
   for i in 1 2 3 4; do \
-		echo '$(LTX) main.tex ' ; \
-		$(LTX) main.tex &> main.make.log ; RET=$$?; \
-		grep 'Label(s) may have changed' main.make.log &>/dev/null || break ; \
+		echo '$(LTX) "$<" ' ; \
+		$(LTX) "$<" &> "$@.make.log" ; RET=$$?; \
+		grep 'Label(s) may have changed' "$@.make.log" &>/dev/null || break ; \
 	done; \
-	WARNS=$$(grep -i warning main.make.log | wc -l); \
-	echo -n $(DIM) ; sed -E 's/[Ww]arning/$(YELLOW)\0$(DIM)/' <main.make.log \
+	WARNS=$$(grep -i warning "$@.make.log" | wc -l); \
+	echo -n $(DIM) ; sed -E 's/[Ww]arning/$(YELLOW)\0$(DIM)/' <"$@.make.log" \
 		| sed -E 's/^! Undefined control sequence/$(RED)\0$(DIM)/' ;\
 		echo $(NORM) ; \
-	rm -f main.make.log ; \
+	rm -f "$@.make.log" ; \
 	test "$$RET" == 0 || echo "$(PDFLATEX) $(RED)failed$(NORM) with code $$RET (see the log above)"; \
 	test "$$WARNS" == 0 || echo "$(PDFLATEX) spewed $$WARNS $(YELLOW)warnings$(NORM)"; \
 	test "$$RET" == 0
@@ -120,14 +131,16 @@ PDFA=pdfa-gs-converter
 # In the first two cases, it may also happen that the pdfa-gs-converter
 # submodule was not pulled or that it was somehow lost. In such scenarios,
 # testing continues until pdfa-gs-converter.sh is downloaded
-main.pdfa.pdf: main.pdf
-	PDFA_CMD=$$( \
+%.pdfa.pdf: %.pdf
+	@ PDFA_CMD=$$( \
 		(test -d $(PDFA) && make -C $(PDFA) all &>/dev/null && echo $(PDFA)/$(PDFA).sh) ||\
 		(test -d lapesd-thesis/$(PDFA) && make -C lapesd-thesis/$(PDFA) &>/dev/null &&\
 			echo lapesd-thesis/$(PDFA)/$(PDFA).sh) ||\
 		((test -f $(PDFA.sh) || curl -Lo $(PDFA).sh $(PDFA_URL)) && echo bash ./$(PDFA).sh) ||\
 		(echo $(PDFA).sh)\
 	); \
+	echo $$PDFA_CMD "$<" "$@" $(DIM); \
 	$$PDFA_CMD "$<" "$@" 2>&1\
 		| grep -v "nnotation set to non-printing" \
-		| grep -v "annotation will not be present in output file"
+		| grep -v "annotation will not be present in output file" ;\
+	echo $(NORM)
