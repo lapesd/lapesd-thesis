@@ -13,6 +13,12 @@ srcs=$(wildcard *.tex) $(wildcard *.bib)
 svgs=$(wildcard imgs/*.svg)
 pdfs=$(svgs:.svg=.pdf)
 
+RED=$(shell tput sgr0 ; tput setab 1 ; tput setaf 7)
+YELLOW=$(shell tput sgr0 ; tput setab 3 ; tput setaf 0)
+DIM=$(shell tput sgr0 ; tput dim)
+BOLD=$(shell tput bold)
+NORM=$(shell tput sgr0)
+
 all: imgs main.pdfa.pdf
 
 imgs: $(pdfs)
@@ -66,10 +72,20 @@ main.aux: $(srcs) $(pdfs) $(plotspdfs)
 
 # Create index file
 main.ilg: main.aux $(srcs)
-	$(MAKEINDEX) main.idx
+	@echo $(MAKEINDEX) main.idx $(DIM); \
+	$(MAKEINDEX) main.idx &>main.make.log; RET=$$? ;\
+	sed -E 's/[Ww]arning/$(YELLOW)\0$(DIM)/' <main.make.log \
+		| sed -E 's/[Ee]rror/$(RED)\0$(DIM)/'; echo $(NORM); \
+	rm -f main.make.log ; \
+	test "$$RET" == 0
 
 main.blg: main.aux $(srcs)
-	$(BIBTEX) main.aux
+	@echo $(BIBTEX) main.aux $(DIM); \
+	$(BIBTEX) main.aux &> main.make.log; RET=$$? ;\
+	sed -E 's/[Ww]arning/$(YELLOW)\0$(DIM)/' <main.make.log \
+		| sed -E 's/[Ee]rror/$(RED)\0$(DIM)/'; echo $(NORM) ;\
+	rm -f main.make.log ;\
+	test "$$RET" == 0
 
 main.pdf: $(srcs) main.aux main.blg main.ilg
 	@ RET=0; \
@@ -79,9 +95,12 @@ main.pdf: $(srcs) main.aux main.blg main.ilg
 		grep 'Label(s) may have changed' main.make.log &>/dev/null || break ; \
 	done; \
 	WARNS=$$(grep -i warning main.make.log | wc -l); \
-	cat main.make.log; rm -f main.make.log ; \
-	test "$$RET" == 0 || echo "$(PDFLATEX) failed with code $$RET (see the log above)"; \
-	test "$$WARNS" == 0 || echo "$(PDFLATEX) spewed $$WARNS warnings"; \
+	echo -n $(DIM) ; sed -E 's/[Ww]arning/$(YELLOW)\0$(DIM)/' <main.make.log \
+		| sed -E 's/^! Undefined control sequence/$(RED)\0$(DIM)/' ;\
+		echo $(NORM) ; \
+	rm -f main.make.log ; \
+	test "$$RET" == 0 || echo "$(PDFLATEX) $(RED)failed$(NORM) with code $$RET (see the log above)"; \
+	test "$$WARNS" == 0 || echo "$(PDFLATEX) spewed $$WARNS $(YELLOW)warnings$(NORM)"; \
 	test "$$RET" == 0
 
 
