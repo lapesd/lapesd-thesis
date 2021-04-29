@@ -59,7 +59,10 @@ endef
 ###################################################
 
 main.aux: $(srcs) $(pdfs) $(plotspdfs)
-	$(LTX) main.tex &>/dev/null ; $(LTX) main.tex &>/dev/null || true
+	@for i in 1 2 3; do \
+		echo '$(LTX) main.tex &>/dev/null' ; \
+		($(LTX) main.tex 2>&1 | grep 'Label(s) may have changed' | &>/dev/null) || break; \
+	done; true
 
 # Create index file
 main.ilg: main.aux $(srcs)
@@ -69,8 +72,18 @@ main.blg: main.aux $(srcs)
 	$(BIBTEX) main.aux
 
 main.pdf: $(srcs) main.aux main.blg main.ilg
-	$(LTX) main.tex &>/dev/null ; \
-	$(LTX) main.tex 2>&1 | tee main.log
+	@ RET=0; \
+  for i in 1 2 3 4; do \
+		echo '$(LTX) main.tex ' ; \
+		$(LTX) main.tex &> main.make.log ; RET=$$?; \
+		grep 'Label(s) may have changed' main.make.log &>/dev/null || break ; \
+	done; \
+	WARNS=$$(grep -i warning main.make.log | wc -l); \
+	cat main.make.log; rm -f main.make.log ; \
+	test "$$RET" == 0 || echo "$(PDFLATEX) failed with code $$RET (see the log above)"; \
+	test "$$WARNS" == 0 || echo "$(PDFLATEX) spewed $$WARNS warnings"; \
+	test "$$RET" == 0
+
 
 ###################################################
 # PDF/A                                           #
