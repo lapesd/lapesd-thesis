@@ -81,20 +81,20 @@ endef
 
 # Create index file
 %.ilg: %.aux
-	@echo $(MAKEINDEX) "$*.idx" $(DIM); \
+	@echo $(MAKEINDEX) "$*.idx" "$(DIM)"; \
 	$(MAKEINDEX) "$*.idx" &>"$*.idx.make.log"; RET=$$? ;\
 	sed -E 's/(^| 0|[Nn][Oo])( +)[Ww](arnings?)/\1\2x\3/' <"$*.idx.make.log" \
 		| sed -E 's/[Ww]arnings?/$(YELLOW)\0$(DIM)/'  \
 		| sed -E 's/[Ee]rrors?/$(RED)\0$(DIM)/' \
-		| sed -E 's/xarning/warning/'; echo $(NORM); \
+		| sed -E 's/xarning/warning/'; echo "$(NORM)"; \
 	rm -f "$*.idx.make.log" ; \
 	test "$$RET" == 0
 
 %.blg: %.aux
-	@echo $(BIBTEX) "$<" $(DIM); \
+	@echo $(BIBTEX) "$<" "$(DIM)"; \
 	$(BIBTEX) "$<" &> "$@.make.log"; RET=$$? ;\
 	sed -E 's/[Ww]arning/$(YELLOW)\0$(DIM)/' <"$@.make.log" \
-		| sed -E 's/[Ee]rror/$(RED)\0$(DIM)/'; echo $(NORM) ;\
+		| sed -E 's/[Ee]rror/$(RED)\0$(DIM)/'; echo "$(NORM)" ;\
 	rm -f "$@.make.log" ;\
 	test "$$RET" == 0
 
@@ -106,9 +106,9 @@ endef
 		grep 'Label(s) may have changed' "$@.make.log" &>/dev/null || break ; \
 	done; \
 	WARNS=$$(grep -i warning "$@.make.log" | wc -l); \
-	echo -n $(DIM) ; sed -E 's/[Ww]arning/$(YELLOW)\0$(DIM)/' <"$@.make.log" \
+	echo -n "$(DIM)" ; sed -E 's/[Ww]arning/$(YELLOW)\0$(DIM)/' <"$@.make.log" \
 		| sed -E 's/^! Undefined control sequence/$(RED)\0$(DIM)/' ;\
-		echo $(NORM) ; \
+		echo "$(NORM)" ; \
 	rm -f "$@.make.log" ; \
 	test "$$RET" == 0 || echo "$(PDFLATEX) $(RED)failed$(NORM) with code $$RET (see the log above)"; \
 	test "$$WARNS" == 0 || echo "$(PDFLATEX) spewed $$WARNS $(YELLOW)warnings$(NORM)"; \
@@ -139,8 +139,8 @@ PDFA=pdfa-gs-converter
 		((test -f $(PDFA.sh) || curl -Lo $(PDFA).sh $(PDFA_URL)) && echo bash ./$(PDFA).sh) ||\
 		(echo $(PDFA).sh)\
 	); \
-	echo $$PDFA_CMD "$<" "$@" $(DIM); \
+	echo $$PDFA_CMD "$<" "$@" "$(DIM)"; \
 	$$PDFA_CMD "$<" "$@" 2>&1\
 		| grep -v "nnotation set to non-printing" \
 		| grep -v "annotation will not be present in output file" ;\
-	echo $(NORM)
+	echo "$(NORM)"
