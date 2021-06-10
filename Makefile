@@ -81,22 +81,33 @@ endef
 
 # Create index file
 %.ilg: %.aux
-	@echo $(MAKEINDEX) "$*.idx" "$(DIM)"; \
-	$(MAKEINDEX) "$*.idx" &>"$*.idx.make.log"; RET=$$? ;\
-	sed -E 's/(^| 0|[Nn][Oo])( +)[Ww](arnings?)/\1\2x\3/' <"$*.idx.make.log" \
-		| sed -E 's/[Ww]arnings?/$(YELLOW)\0$(DIM)/'  \
-		| sed -E 's/[Ee]rrors?/$(RED)\0$(DIM)/' \
-		| sed -E 's/xarning/warning/'; echo "$(NORM)"; \
-	rm -f "$*.idx.make.log" ; \
-	test "$$RET" == 0
+	@if [ ! -f "$*.idx" ]; then \
+		echo "$*.idx $(YELLOW)missing$(NORM), will skip makeindex"; \
+		touch -f "$@"; \
+	else \
+		echo $(MAKEINDEX) "$*.idx" "$(DIM)"; \
+		$(MAKEINDEX) "$*.idx" &>"$*.idx.make.log"; RET=$$? ;\
+		sed -E 's/(^| 0|[Nn][Oo])( +)[Ww](arnings?)/\1\2x\3/' <"$*.idx.make.log" \
+			| sed -E 's/[Ww]arnings?/$(YELLOW)\0$(DIM)/'  \
+			| sed -E 's/[Ee]rrors?/$(RED)\0$(DIM)/' \
+			| sed -E 's/xarning/warning/'; echo "$(NORM)"; \
+		rm -f "$*.idx.make.log" ; \
+		test "$$RET" == 0 ;\
+	fi
 
 %.blg: %.aux
-	@echo $(BIBTEX) "$<" "$(DIM)"; \
-	$(BIBTEX) "$<" &> "$@.make.log"; RET=$$? ;\
-	sed -E 's/[Ww]arning/$(YELLOW)\0$(DIM)/' <"$@.make.log" \
-		| sed -E 's/[Ee]rror/$(RED)\0$(DIM)/'; echo "$(NORM)" ;\
-	rm -f "$@.make.log" ;\
-	test "$$RET" == 0
+	@if [ ! -f "$<" ]; then \
+		echo "$< $(RED)missing$(NORM), will skip bibtex"; \
+		touch "$@"; \
+	else \
+		echo $(BIBTEX) "$<" "$(DIM)"; \
+		$(BIBTEX) "$<" &> "$@.make.log"; RET=$$? ;\
+		sed -E 's/[Ww]arning/$(YELLOW)\0$(DIM)/' <"$@.make.log" \
+			| sed -E 's/[Ee]rror/$(RED)\0$(DIM)/'; echo "$(NORM)" ;\
+		rm -f "$@.make.log" ;\
+		test "$$RET" == 0; \
+	fi
+
 
 %.pdf: %.tex %.aux %.blg %.ilg
 	@ RET=0; \
