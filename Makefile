@@ -1,3 +1,8 @@
+# Shell expansions were written for bash, they might work with other shells, but
+# settings this will avoid needless suffering
+SHELL=/bin/bash
+
+# Control which programs to use
 PDFLATEX=pdflatex
 BIBTEX=bibtex
 MAKEINDEX=makeindex
