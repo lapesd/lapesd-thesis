@@ -5,7 +5,7 @@
 % Versão  do LaTeX
 \NeedsTeXFormat{LaTeX2e}
 % Declara a classe (e versão)
-\ProvidesClass{lapesd-thesis}[2021/04/28 v0.3 lapesd-thesis]
+\ProvidesClass{lapesd-thesis}[2021/08/10 v0.3.1 lapesd-thesis]
 
 % Não há razão para tolerar qualquer coisa além de UTF-8
 \RequirePackage[utf8]{inputenc}
@@ -190,6 +190,29 @@
     #4%
     \vspace{1.5em}%
   \end{minipage}%
+}
+
+% Sem essa gambiarra, um \autoref{fig:sf} onde fig:sf se refere à um
+% \subcaptionminipage[fig:sf]{}{}{} dentro de um figure com
+% \contcaption{(continua)} (fazendo com que o caption não incremente o contador
+% da Figura) gerará Figure i+1(c) ao invés de Figure i(c).
+\newtoggle{lapesdthesis@inccaptioncounter}
+\let\lapesdthesis@contcaption\contcaption
+\renewcommand{\contcaption}[1]{%
+  \lapesdthesis@contcaption{#1}%
+  \toggletrue{lapesdthesis@inccaptioncounter}
+  \addtocounter{\@captype}{-1}%
+}
+
+% Antes de sair de um figure com \contcaption, desfaz o decremento no counter
+% (que era necessário para que o \subcaption funcionasse corretamente). Não
+% fazer isso pode fazer com que o caption de figuras subsequentes sejam
+% numeradas como i-1 ao invés de i.
+\AtEndEnvironment{figure}{%
+  \iftoggle{lapesdthesis@inccaptioncounter}
+    {\addtocounter{\@captype}{1}}%
+    {}%
+  \togglefalse{lapesdthesis@inccaptioncounter}%
 }
 
 
