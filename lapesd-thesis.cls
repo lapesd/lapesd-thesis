@@ -26,21 +26,33 @@
 %%% Declarações e tratamento inicial de opções                     %%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\RequirePackage{kvoptions} %key=value class options
+\SetupKeyvalOptions{
+  family=lapesdthesis,
+  prefix=lapesdthesis@
+}
+
 % Nossa fonte padrão é lmodern
 \def\lapesdthesis@font{lmodern}
-\DeclareOption{times}{\def\lapesdthesis@font{times}}
-\DeclareOption{arial}{\def\lapesdthesis@font{arial}}
+\DeclareVoidOption{times}{\def\lapesdthesis@font{times}}
+\DeclareVoidOption{arial}{\def\lapesdthesis@font{arial}}
 
 % O nosso padrão é usar o logo embarcado, direnteo do upstream
-\newif\iflapesdthesis@embeddlogo
-\lapesdthesis@embeddlogotrue
-\DeclareOption{noembeddlogo}{\lapesdthesis@embeddlogofalse}
+\DeclareBoolOption[true]{embeddlogo}
+\DeclareComplementaryOption{noembeddlogo}{embeddlogo}
+
+% O template da BU não inclui a página do primeiro uso da sigla na lista de
+% siglas. Muito provavelmente pois tal funcionalidade no word não existe e seria
+% um pesadelo fazer isso manualmente. Não há motivo para o bibliotecário achar
+% tal conveniência ruim, mas em caso de ergencia essa opção existe.
+\DeclareBoolOption[true]{glossariespages}
+\DeclareComplementaryOption{noglossariespages}{glossariespages}
 
 % Todas as opções que não foram listadas anteriormente são redirecionadas 
-\DeclareOption*{\PassOptionsToClass{\CurrentOption}{ufsc-thesis-rn46-2019}}
+\DeclareDefaultOption{\PassOptionsToClass{\CurrentOption}{ufsc-thesis-rn46-2019}}
 
 % Faz a mágica acontecer
-\ProcessOptions\relax
+\ProcessKeyvalOptions*
 
 % Carrega como base a classe ufsc-thesis-rn46-2019
 \iflapesdthesis@embeddlogo
@@ -305,7 +317,11 @@
   \setglossarystyle{long}%
   \renewcommand{\glossentry}[2]{%
     \glsentryitem{##1}\glstarget{##1}{\glossentryname{##1}}% 
-    & \glossentrydesc{##1}\glspostdescription\cftdotfill{\cftdotsep} ##2\tabularnewline%
+    & \glossentrydesc{##1}%
+      \iflapesdthesis@glossariespages%
+        \glspostdescription\cftdotfill{\cftdotsep} ##2%
+      \fi%
+      \tabularnewline%
   }%
   \addtocounter{table}{-1}
 }
