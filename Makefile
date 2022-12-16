@@ -18,7 +18,11 @@ srcs=$(wildcard *.tex) $(wildcard *.bib)
 svgs=$(wildcard imgs/*.svg)
 pdfs=$(svgs:.svg=.pdf)
 
-basename:=$(shell (grep -rE '\\documentclass.*lapesd-thesis' | cut -d : -f 1 | grep -E '.tex$$' | xargs -n 1 bash -c 'echo $$(echo $$@ | wc -c):$$@' a | sed -E 's/^([0-9]):/00\1:/' | sed -E 's/^([0-9][0-9]):/0\1:/' | sort -u | head -n 1 | sed -E 's/^[0-9]+:(.*).tex$$/\1/g' > basename.make.log && test "$$(cat basename.make.log)" != "001:" && cat basename.make.log && rm -f basename.make.log)  || echo main)
+ifndef MAIN_FILE
+	basename:=$(shell (grep -rE '\\documentclass.*lapesd-thesis' | cut -d : -f 1 | grep -E '.tex$$' | xargs -n 1 bash -c 'echo $$(echo $$@ | wc -c):$$@' a | sed -E 's/^([0-9]):/00\1:/' | sed -E 's/^([0-9][0-9]):/0\1:/' | sort -u | head -n 1 | sed -E 's/^[0-9]+:(.*).tex$$/\1/g' > basename.make.log && test "$$(cat basename.make.log)" != "001:" && cat basename.make.log && rm -f basename.make.log)  || echo main)
+else
+	basename:=$(MAIN_FILE)
+endif
 
 RED=$(shell tput sgr0 ; tput setab 1 ; tput setaf 7)
 YELLOW=$(shell tput sgr0 ; tput setab 3 ; tput setaf 0)
@@ -40,7 +44,7 @@ imgs: $(pdfs)
 .SECONDARY: $(basename).aux $(basename).blg $(basename).ilg $(basename).pdf
 
 clean:
-	rm -fr *.64 main-logo.pdf _minted-* *.aux *.bbl *.blg *.brf *.out *.synctex.gz *.log "$(basename).pdf" "$(basename).pdfa.pdf" *.idx *.ilg *.ind *.lof *.lot *.lol *.loalgorithm *.glsdefs *.xdy *.toc *.acn *.glo *.ist *.prv *.fls *.fdb_latexmk _region*  *~ auto imgs/*.tmp.pdf {imgs,plots}/*-eps-converted-to.pdf;
+	rm -fr *.64 $(basename)-logo.pdf _minted-* *.aux *.bbl *.blg *.brf *.out *.synctex.gz *.log "$(basename).pdf" "$(basename).pdfa.pdf" *.idx *.ilg *.ind *.lof *.lot *.lol *.loalgorithm *.glsdefs *.xdy *.toc *.acn *.glo *.ist *.prv *.fls *.fdb_latexmk _region*  *~ auto imgs/*.tmp.pdf {imgs,plots}/*-eps-converted-to.pdf;
 
 
 ###################################################
@@ -152,7 +156,7 @@ PDFA=pdfa-gs-converter
 		(test -d $(PDFA) && make -C $(PDFA) all &>/dev/null && echo $(PDFA)/$(PDFA).sh) ||\
 		(test -d lapesd-thesis/$(PDFA) && make -C lapesd-thesis/$(PDFA) &>/dev/null &&\
 			echo lapesd-thesis/$(PDFA)/$(PDFA).sh) ||\
-		((test -f $(PDFA).sh || curl -Lo $(PDFA).sh $(PDFA_URL)) && echo bash ./$(PDFA).sh) ||\
+		((test -f $(PDFA.sh) || curl -Lo $(PDFA).sh $(PDFA_URL)) && echo bash ./$(PDFA).sh) ||\
 		(echo $(PDFA).sh)\
 	); \
 	echo $$PDFA_CMD "$<" "$@" "$(DIM)"; \
