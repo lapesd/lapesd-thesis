@@ -156,7 +156,7 @@ PDFA=pdfa-gs-converter
 		(test -d $(PDFA) && make -C $(PDFA) all &>/dev/null && echo $(PDFA)/$(PDFA).sh) ||\
 		(test -d lapesd-thesis/$(PDFA) && make -C lapesd-thesis/$(PDFA) &>/dev/null &&\
 			echo lapesd-thesis/$(PDFA)/$(PDFA).sh) ||\
-		((test -f $(PDFA.sh) || curl -Lo $(PDFA).sh $(PDFA_URL)) && echo bash ./$(PDFA).sh) ||\
+		((test -f $(PDFA).sh || curl -Lo $(PDFA).sh $(PDFA_URL)) && echo bash ./$(PDFA).sh) ||\
 		(echo $(PDFA).sh)\
 	); \
 	echo $$PDFA_CMD "$<" "$@" "$(DIM)"; \
